@@ -28,10 +28,9 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
-# doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
+doctype_js = {
+    "Work Order": "public/js/work_order.js"
+}
 
 # Svg Icons
 # ------------------
@@ -122,34 +121,24 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "Work Order": {
+        "on_submit": "delay_predictor.custom_extensions.work_order.work_order_customization.entry_point",
+        "on_update": "delay_predictor.custom_extensions.work_order.work_order_customization.entry_point",
+        "validate": "delay_predictor.custom_extensions.work_order.work_order_customization.entry_point",
+    },
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"delay_predictor.tasks.all"
-# 	],
-# 	"daily": [
-# 		"delay_predictor.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"delay_predictor.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"delay_predictor.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"delay_predictor.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+    "cron": {
+        "0 */6 * * *": [
+            "delay_predictor.services.production_delay_predictor.scheduled_jobs.predict_production_delays"
+        ],
+    }
+}
 
 # Testing
 # -------

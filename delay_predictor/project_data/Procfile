@@ -1,0 +1,5 @@
+web: bench serve --port 8000
+worker: bench worker --queue default
+scheduler: bench schedule
+socketio: bench start-socketio
+watch: bench watch
